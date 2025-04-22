@@ -1,10 +1,6 @@
 import "./globals.css";
 import {
     ClerkProvider,
-    SignedIn,
-    SignedOut,
-    SignInButton,
-    SignUpButton,
 } from "@clerk/nextjs";
 
 export default function RootLayout({

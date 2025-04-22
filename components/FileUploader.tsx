@@ -5,8 +5,9 @@ import { useCallback } from "react";
 import { useDropzone } from "react-dropzone";
 
 export default function FileUploader() {
-    const onDrop = useCallback((acceptedFiles: File) => {
+    const onDrop = useCallback((acceptedFiles: File[]) => {
         // Do something with the files
+        console.log(acceptedFiles);
     }, []);
     const {
         getRootProps,
@@ -23,7 +24,7 @@ export default function FileUploader() {
             <div
                 {...getRootProps()}
                 className={`p-10 border-indigo-600 border-2 border-dashed mt-10 w-[90%] text-indigo-600 rounded-lg h-96 flex items-center justify-center ${
-                    isFocused || isDragActive
+                    isFocused || isDragAccept
                         ? "bg-indigo-300"
                         : "bg-indigo-100"
                 }`}
@@ -40,7 +41,7 @@ export default function FileUploader() {
                         <>
                             <CircleArrowDown className="h-20 w-20 animate-bounce" />
                             <p>
-                                Drag 'n' drop some files here, or click to
+                                Drag and drop some files here, or click to
                                 select files
                             </p>
                         </>
