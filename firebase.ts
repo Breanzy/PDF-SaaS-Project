@@ -19,4 +19,4 @@ const storage = getStorage(app);
 
 export { db, storage };
 
-am setting up firebase bro am tweaking bro for real man imma saas spender now holy moly thats wildeee cuh
+i need to lock in man cmonn
