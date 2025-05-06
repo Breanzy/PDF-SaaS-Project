@@ -16,7 +16,7 @@ export default function PlaceholderDocument() {
             className="flex flex-col items-center w-64 h-80 rounded-xl bg-gray-200 drop-shadow-md text-gray-400"
         >
             <PlusCircleIcon className="16 w-16" />
-            <p>Add a Documents</p>
+            <p>Add a Document</p>
         </Button>
     );
 }
