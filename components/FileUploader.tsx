@@ -68,8 +68,15 @@ export default function FileUploader() {
             <div className="mt-32 flex flex-col justify-center items-center gap-5">
                 <div
                     className={`radial-progress bg-indigo-300 text-white border-indigo-600 border-4 ${
-                        progress == 100 && "hidden"
+                        progress == 100 || progress == null ? "hidden" : ""
                     }`}
+                    role="progressbar"
+                    style={{
+                        //@ts-ignore
+                        "--value": progress,
+                        "--size": "12rem",
+                        "--thickness": "1.3rem",
+                    }}
                 >
                     {progress} %
                 </div>
@@ -83,40 +90,35 @@ export default function FileUploader() {
                 <p className="text-indigo-600 animate-pulse">{status}</p>
             </div>
 
-            <div
-                {...getRootProps()}
-                className={`p-10 border-indigo-600 border-2 border-dashed mt-10 w-[90%] text-indigo-600 rounded-lg h-96 flex items-center justify-center ${
-                    isFocused || isDragAccept
-                        ? "bg-indigo-300"
-                        : "bg-indigo-100"
-                }`}
-                role="progressbar"
-                style={{
-                    //@ts-ignore
-                    "--value": progress,
-                    "--size": "12rem",
-                    "--thickness": "1.3rem",
-                }}
-            >
-                <input {...getInputProps()} />
+            {!uploadingProgress && (
+                <div
+                    {...getRootProps()}
+                    className={`p-10 border-indigo-600 border-2 border-dashed mt-10 w-[90%] text-indigo-600 rounded-lg h-96 flex items-center justify-center ${
+                        isFocused || isDragAccept
+                            ? "bg-indigo-300"
+                            : "bg-indigo-100"
+                    }`}
+                >
+                    <input {...getInputProps()} />
 
-                <div className="flex flex-col items-center justify-center">
-                    {isDragActive ? (
-                        <>
-                            <RocketIcon className="h-20 w-20 animate-ping" />
-                            <p>Drop the files here ...</p>
-                        </>
-                    ) : (
-                        <>
-                            <CircleArrowDown className="h-20 w-20 animate-bounce" />
-                            <p>
-                                Drag and drop some files here, or click to
-                                select files
-                            </p>
-                        </>
-                    )}
+                    <div className="flex flex-col items-center justify-center">
+                        {isDragActive ? (
+                            <>
+                                <RocketIcon className="h-20 w-20 animate-ping" />
+                                <p>Drop the files here ...</p>
+                            </>
+                        ) : (
+                            <>
+                                <CircleArrowDown className="h-20 w-20 animate-bounce" />
+                                <p>
+                                    Drag and drop some files here, or click to
+                                    select files
+                                </p>
+                            </>
+                        )}
+                    </div>
                 </div>
-            </div>
+            )}
         </div>
     );
 }
