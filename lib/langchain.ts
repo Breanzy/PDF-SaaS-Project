@@ -118,7 +118,11 @@ export async function generateEmbeddingsInPineconeVectorStore(docId: string) {
 
     // Generate embeddings (numerical representations) for the split documents
     console.log("--- Generating embeddings... ---");
-    const embeddings = new OpenAIEmbeddings();
+    const embeddings = new OpenAIEmbeddings({
+        apiKey: process.env.OPENAI_API_KEY,
+    });
+
+    console.log(`--- Embeddings created ${embeddings}---`);
 
     const index = await pineconeClient.index(indexName);
     const namespaceAlreadyExists = await namespaceExists(index, docId);
@@ -153,6 +157,8 @@ export async function generateEmbeddingsInPineconeVectorStore(docId: string) {
                 namespace: docId,
             }
         );
+
+        console.log("yoyoyolkasdhhlkjasdlkhjadfs");
 
         return pineconeVectorStore;
     }
