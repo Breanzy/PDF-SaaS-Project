@@ -158,8 +158,6 @@ export async function generateEmbeddingsInPineconeVectorStore(docId: string) {
             }
         );
 
-        console.log("yoyoyolkasdhhlkjasdlkhjadfs");
-
         return pineconeVectorStore;
     }
 }
