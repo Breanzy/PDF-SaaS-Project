@@ -9,6 +9,7 @@ import { useCollection } from "react-firebase-hooks/firestore";
 import { useUser } from "@clerk/nextjs";
 import { collection, orderBy, query } from "firebase/firestore";
 import { db } from "@/firebase";
+import { askQuestion } from "@/actions/askQuestion";
 // import { askQuestion } from "@/actions/askQuestion";
 // import ChatMessage from "./ChatMessage";
 // import { useToast } from "./ui/use-toast";
@@ -25,7 +26,7 @@ export default function Chat({ id }: { id: string }) {
 
     const [input, setInput] = useState("");
     const [isPending, startTransition] = useTransition();
-    const [message, setMessage] = useState<Message[]>([]);
+    const [messages, setMessages] = useState<Message[]>([]);
 
     const [snapshot, loading, error] = useCollection(
         user &&
@@ -35,13 +36,85 @@ export default function Chat({ id }: { id: string }) {
             )
     );
 
+    useEffect(() => {
+        if (!snapshot) return;
+        console.log("Updated snapshot:", snapshot.docs);
+
+        const lastMessage = messages.pop();
+
+        if (
+            lastMessage?.role === "ai" &&
+            lastMessage.message === "Thinking..."
+        ) {
+            return;
+        }
+
+        const newMessages = snapshot.docs.map((doc) => {
+            const { role, message, createdAt } = doc.data();
+
+            return {
+                id: doc.id,
+                role,
+                message,
+                createdAt: createdAt.toDate(),
+            };
+        });
+
+        setMessages(newMessages);
+    }, [snapshot]);
+
     const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
+
+        const q = input;
+        setInput("");
+
+        setMessages((prev) => [
+            ...prev,
+            {
+                role: "human",
+                message: q,
+                createdAt: new Date(),
+            },
+            {
+                role: "ai",
+                message: "Thinking...",
+                createdAt: new Date(),
+            },
+        ]);
+
+        startTransition(async () => {
+            const { success, message } = await askQuestion(id, q);
+
+            if (!success) {
+                // toast({
+                //     variant: "destructive",
+                //     title: "Error",
+                //     description: message,
+                // });
+
+                setMessages((prev) =>
+                    prev.slice(0, prev.length - 1).concat([
+                        {
+                            role: "ai",
+                            message: `Whoops... ${message}`,
+                            createdAt: new Date(),
+                        },
+                    ])
+                );
+            }
+        });
     };
 
     return (
         <div className="flex flex-col h-full overflow-scroll">
-            <div className="flex-1 w-full"></div>
+            <div className="flex-1 w-full">
+                {messages.map((message) => (
+                    <div className="" key={message.id}>
+                        <p className="">{message.message}</p>
+                    </div>
+                ))}
+            </div>
             <form
                 onSubmit={handleSubmit}
                 className="flex sticky bottom-0 space-x-2 p-5 bg-indigo-600/75"
