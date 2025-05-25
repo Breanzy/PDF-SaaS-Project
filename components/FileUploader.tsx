@@ -29,7 +29,7 @@ export default function FileUploader() {
             await handleUpload(file);
         } else {
         }
-    }, []);
+    }, [handleUpload]);
 
     const statusIcons: {
         [key in StatusText]: ReactElement;
