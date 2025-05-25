@@ -33,7 +33,7 @@ function ChatMessage({ message }: { message: Message }) {
             </div>
 
             <div
-                className={`chat-bubble prose ${
+                className={`chat-bubble prose rounded-2xl ${
                     isHuman && "bg-indigo-600 text-white"
                 }`}
             >
