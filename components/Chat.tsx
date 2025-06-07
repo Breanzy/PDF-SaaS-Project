@@ -10,9 +10,7 @@ import { useUser } from "@clerk/nextjs";
 import { collection, orderBy, query } from "firebase/firestore";
 import { db } from "@/firebase";
 import { askQuestion } from "@/actions/askQuestion";
-import { create } from "domain";
-// import { askQuestion } from "@/actions/askQuestion";
-// import { useToast } from "./ui/use-toast";
+import { toast } from "sonner";
 
 export type Message = {
     id?: string;
@@ -94,11 +92,7 @@ export default function Chat({ id }: { id: string }) {
             const { success, message } = await askQuestion(id, q);
 
             if (!success) {
-                // toast({
-                //     variant: "destructive",
-                //     title: "Error",
-                //     description: message,
-                // });
+                toast.error(message);
 
                 setMessages((prev) =>
                     prev.slice(0, prev.length - 1).concat([

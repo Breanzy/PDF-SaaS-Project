@@ -4,8 +4,9 @@ import { adminDb } from "@/firebaseAdmin";
 import { generateLangchainCompletion } from "@/lib/langchain";
 import { auth } from "@clerk/nextjs/server";
 
-const FREE_LIMIT = 3;
-const PRO_LIMIT = 100;
+const PRO_LIMIT = 20;
+const FREE_LIMIT = 2;
+
 export async function askQuestion(id: string, question: string) {
     auth.protect();
     const { userId } = await auth();
@@ -21,6 +22,22 @@ export async function askQuestion(id: string, question: string) {
     const userMessages = chatSnapshot.docs.filter(
         (doc) => doc.data().role === "human"
     );
+
+    const userRef = await adminDb.collection("users").doc(userId!).get();
+
+    if (userMessages.length >= FREE_LIMIT) {
+        return {
+            success: false,
+            message: `You have reached the FREE tier limit. Upgrade to PRO to ask more than ${FREE_LIMIT} questions.`,
+        };
+    }
+
+    if (userMessages.length >= PRO_LIMIT) {
+        return {
+            success: false,
+            message: `You have reached the PRO tier limit of ${FREE_LIMIT}`,
+        };
+    }
 
     const userMessage: Message = {
         role: "human",
