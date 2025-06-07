@@ -3,7 +3,7 @@ import { createCheckoutSession } from "@/actions/createCheckoutSession";
 import { createStripePortal } from "@/actions/createStripePortal";
 import { Button } from "@/components/ui/button";
 import useSubscription from "@/hooks/useSubscription";
-import getStripe from "@/lib/sripe-js";
+import getStripe from "@/lib/stripe-js";
 import { useUser } from "@clerk/nextjs";
 import { CheckIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
