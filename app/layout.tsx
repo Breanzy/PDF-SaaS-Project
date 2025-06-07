@@ -1,6 +1,6 @@
 import "./globals.css";
 import { ClerkProvider } from "@clerk/nextjs";
-// import { Toaster } from "@/components/ui/sonner";
+import { Toaster } from "@/components/ui/sonner";
 
 export default function RootLayout({
     children,
@@ -11,7 +11,7 @@ export default function RootLayout({
         <ClerkProvider>
             <html lang="en">
                 <body className="min-h-screen h-screen overflow-hidden flex flex-col">
-                    {/* <Toaster /> */}
+                    <Toaster richColors />
                     {children}
                 </body>
             </html>
