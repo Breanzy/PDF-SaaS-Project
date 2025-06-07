@@ -1,5 +1,6 @@
 "use client";
 
+import useSubscription from "@/hooks/useSubscription";
 import useUpload, { StatusText } from "@/hooks/useUpload";
 import {
     CheckCircleIcon,
@@ -11,10 +12,12 @@ import {
 import { useRouter } from "next/navigation";
 import { ReactElement, useCallback, useEffect } from "react";
 import { useDropzone } from "react-dropzone";
+import { toast } from "sonner";
 
 export default function FileUploader() {
     const { progress, status, fileId, handleUpload } = useUpload();
     const router = useRouter();
+    const { isOverFileLimit, filesLoading } = useSubscription();
 
     useEffect(() => {
         if (fileId) {
@@ -22,14 +25,24 @@ export default function FileUploader() {
         }
     }, [fileId, router]);
 
-    const onDrop = useCallback(async (acceptedFiles: File[]) => {
-        // Do something with the files
-        const file = acceptedFiles[0];
-        if (file) {
-            await handleUpload(file);
-        } else {
-        }
-    }, [handleUpload]);
+    const onDrop = useCallback(
+        async (acceptedFiles: File[]) => {
+            // Do something with the files
+
+            const file = acceptedFiles[0];
+            if (file) {
+                if (!isOverFileLimit && !filesLoading) {
+                    await handleUpload(file);
+                } else {
+                    toast.error(
+                        "You have reached the maximum number of files allowed for your account. Upgrade to PRO to add more documents"
+                    );
+                }
+            } else {
+            }
+        },
+        [handleUpload]
+    );
 
     const statusIcons: {
         [key in StatusText]: ReactElement;
