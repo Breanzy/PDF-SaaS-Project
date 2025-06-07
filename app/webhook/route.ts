@@ -5,7 +5,7 @@ import { NextRequest, NextResponse } from "next/server";
 import Stripe from "stripe";
 
 export async function POST(req: NextRequest) {
-    const headersList = headers();
+    const headersList = await headers();
     const body = await req.text();
     const signature = headersList.get("stripe-signature");
 
@@ -52,6 +52,8 @@ export async function POST(req: NextRequest) {
         case "checkout.session.completed":
         case "payment_intent.succeeded": {
             const invoice = event.data.object;
+            console.log(`DATA YAWA KA PAKYO`);
+
             const customerId = invoice.customer as string;
 
             const userDetails = await getUserDetails(customerId);
@@ -67,6 +69,7 @@ export async function POST(req: NextRequest) {
 
         case "customer.subscription.deleted":
         case "subscription_schedule.canceled": {
+            console.log("BOGO KA PISTI");
             const subscription = event.data.object as Stripe.Subscription;
             const customerId = subscription.customer as string;
 
