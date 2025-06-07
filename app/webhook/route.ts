@@ -15,12 +15,9 @@ export async function POST(req: NextRequest) {
 
     if (!process.env.STRIPE_WEBHOOK_SECRET) {
         console.log("Stripe webhook is not set.");
-        return (
-            new NextResponse("Stripe webhook secret is not set"),
-            {
-                status: 400,
-            }
-        );
+        return new NextResponse("Stripe webhook secret is not set", {
+            status: 400,
+        });
     }
 
     let event: Stripe.Event;
