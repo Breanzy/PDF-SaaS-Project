@@ -64,7 +64,6 @@ export default function Home() {
                         <p className="mt-6 text-lg loading-8 text-gray-600">
                             Introducing{" "}
                             <span className="font-bold text-indigo-600">
-                                Chat with PDF.
                                 PDFy.AI
                             </span>
                             <br />
@@ -73,7 +72,6 @@ export default function Home() {
                             questions, summarize content, and answer all your
                             Questions. Ideal for everyone,{" "}
                             <span className="text-indigo-600">
-                                Chat with PDF
                                 PDFy.AI
                             </span>{" "}
                             turns static documents into{" "}
@@ -93,7 +91,7 @@ export default function Home() {
                     <div className="mx-auto max-w-7x px-6 lg:px-8">
                         <Image
                             alt="App screenshot"
-                            src="https://i.imgur.com/VciRSTI.jpeg"
+                            src="https://i.imgur.com/lJrfPCh.jpeg"
                             width={2432}
                             height={1442}
                             className="mb-[-0%] rounded-xl shadow-2xl ring-1 ring-gray-900/10"

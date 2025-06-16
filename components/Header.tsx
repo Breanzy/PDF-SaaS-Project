@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Button } from "./ui/button";
 import { FilePlus2 } from "lucide-react";
 import UpgradeButton from "./UpgradeButton";
+import Image from "next/image";
 
 export default function Header() {
     return (
@@ -12,6 +13,13 @@ export default function Header() {
                     href="/dashboard"
                     className="flex items-center gap-2 text-2xl font-semibold"
                 >
+                    <Image
+                        alt="App logo"
+                        src="https://i.imgur.com/NBhsLXn.jpg"
+                        width={40}
+                        height={40}
+                        className="rounded-full hidden md:block"
+                    />
                     <span className="flex items-center">
                         PDFy.<span className="text-indigo-600">AI</span>
                     </span>
