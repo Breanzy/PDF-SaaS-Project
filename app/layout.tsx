@@ -3,7 +3,7 @@ import { ClerkProvider } from "@clerk/nextjs";
 import { Toaster } from "@/components/ui/sonner";
 import { Metadata } from "next";
 
-export const meta: Metadata = {
+export const metadata: Metadata = {
     metadataBase: new URL("https://pdfyai.vercel.app"),
     keywords: [
         "AI PDF reader",
