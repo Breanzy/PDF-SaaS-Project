@@ -7,9 +7,16 @@ import UpgradeButton from "./UpgradeButton";
 export default function Header() {
     return (
         <div className="flex justify-between bg-white shadow-sm p-5 border-b">
-            <Link href="/dashboard" className="text-2xl">
-                Chat to <span className="text-indigo-600">PDF</span>
-            </Link>
+            <div className="flex items-center justify-center gap-2">
+                <Link
+                    href="/dashboard"
+                    className="flex items-center gap-2 text-2xl font-semibold"
+                >
+                    <span className="flex items-center">
+                        PDFy.<span className="text-indigo-600">AI</span>
+                    </span>
+                </Link>
+            </div>
 
             <SignedIn>
                 <div className="flex items-center space-x-2">
@@ -31,7 +38,7 @@ export default function Header() {
                         </Link>
                     </Button>
 
-                    <UpgradeButton/>
+                    <UpgradeButton />
                     <UserButton></UserButton>
                 </div>
             </SignedIn>

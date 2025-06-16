@@ -65,6 +65,7 @@ export default function Home() {
                             Introducing{" "}
                             <span className="font-bold text-indigo-600">
                                 Chat with PDF.
+                                PDFy.AI
                             </span>
                             <br />
                             <br />
@@ -73,6 +74,7 @@ export default function Home() {
                             Questions. Ideal for everyone,{" "}
                             <span className="text-indigo-600">
                                 Chat with PDF
+                                PDFy.AI
                             </span>{" "}
                             turns static documents into{" "}
                             <span className="font-bold">
